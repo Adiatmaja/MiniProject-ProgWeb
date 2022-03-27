@@ -103,15 +103,15 @@ div .domain {
     height: 15px;
     width: 15px;
     margin: 0 20px;
-    background-color: orange;
+    background-color: grey;
     border-radius: 50%;
     display: inline-block;
 }
 img.hiit{
-    height: 25%;
-    width: 27%;
-    margin-left: 5%;
-    margin-top: 10%;
+    display: block;
+    width: 50%;
+    margin: auto;
+    padding-top: 50px;
     transition: 0.2s;
 }
 img.hiit:hover {
@@ -120,10 +120,10 @@ img.hiit:hover {
     transition: 0.2s;
 }
 img.yoga{
-    height: 25%;
-    width: 25%;
-    margin-left: 7.5%;
-    margin-top: 10%;
+    display: block;
+    width: 50%;
+    margin: auto;
+    padding-top: 50px;
     transition: 0.2s;
 }
 img.yoga:hover {
@@ -132,10 +132,10 @@ img.yoga:hover {
     transition: 0.2s;
 }
 img.cardio{
-    height: 25%;
-    width: 21%;
-    margin-left: 7.5%;
-    margin-top: 10%;
+    display: block;
+    width: 50%;
+    margin: auto;
+    padding-top: 50px;
     transition: 0.2s;
 }
 img.cardio:hover {
