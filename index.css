@@ -1,6 +1,6 @@
 body{
     background-color: rgb(32,33,36);
-    font-family: sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -43,6 +43,27 @@ body{
     align-items: baseline;
     justify-content: space-around;
     overflow: hidden;
+}
+.contain{
+    width: 60%;
+    margin: 5% 20% 0% 20%;
+    padding: 0.5% 1%;
+    display: table;
+    border: 2px solid grey;
+    border-radius: 20px;
+    background-color: #525659;
+    text-align: center;
+}
+.description {
+    width: auto;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.levels {
+    display: flex;
+    justify-content: space-around;
 }
 .video-background {
     position: absolute;
@@ -108,11 +129,10 @@ div .domain {
     display: inline-block;
 }
 img.hiit{
-    display: block;
     width: 50%;
-    margin: auto;
-    padding-top: 50px;
+    margin: 20px auto;
     transition: 0.2s;
+    float: left;
 }
 img.hiit:hover {
     background-color: black;
@@ -120,11 +140,10 @@ img.hiit:hover {
     transition: 0.2s;
 }
 img.yoga{
-    display: block;
     width: 50%;
-    margin: auto;
-    padding-top: 50px;
+    margin: 20px auto;
     transition: 0.2s;
+    float: left;
 }
 img.yoga:hover {
     background-color: black;
@@ -132,14 +151,19 @@ img.yoga:hover {
     transition: 0.2s;
 }
 img.cardio{
-    display: block;
     width: 50%;
-    margin: auto;
-    padding-top: 50px;
+    margin: 20px auto;
     transition: 0.2s;
+    float: left;
 }
 img.cardio:hover {
     background-color: black;
     opacity: 25%;
     transition: 0.2s;
+}
+footer{
+    text-align: center;
+    bottom: 0px;
+    border-top: 1px solid white;
+    color:white;
 }
