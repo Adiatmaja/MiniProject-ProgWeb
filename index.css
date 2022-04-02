@@ -45,8 +45,9 @@ body{
     overflow: hidden;
 }
 .contain{
-    width: 60%;
-    margin: 5% 20% 0% 20%;
+    position: relative;
+    width: 88%;
+    margin: 5%;
     padding: 0.5% 1%;
     display: table;
     border: 2px solid grey;
@@ -54,17 +55,20 @@ body{
     background-color: #525659;
     text-align: center;
 }
-.description {
-    width: auto;
-    height: 300px;
+.levels {
+    position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
 }
-.levels {
-    display: flex;
-    justify-content: space-around;
+.levels img {
+    width: 500px;
+    height: 300px;
 }
+.description{
+    position: relative;
+    text-align: center;
+}
+
 .video-background {
     position: absolute;
     top: 0;
