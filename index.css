@@ -3,11 +3,11 @@ body{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    color: #e8eaed;
 }
 .header{
     padding: 0.5%;
     text-align: center;
-    color: white;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -50,9 +50,8 @@ body{
     margin: 5%;
     padding: 0.5% 1%;
     display: table;
-    border: 2px solid grey;
+    border: 2px solid #3c4043;
     border-radius: 20px;
-    background-color: #525659;
     text-align: center;
 }
 .levels {
@@ -67,6 +66,11 @@ body{
 .description{
     position: relative;
     text-align: center;
+}
+
+.description img{
+    opacity: 80%;
+    border-radius: 20px;
 }
 
 .video-background {
@@ -132,42 +136,21 @@ div .domain {
     border-radius: 50%;
     display: inline-block;
 }
-img.hiit{
-    width: 50%;
-    margin: 20px auto;
-    transition: 0.2s;
-    float: left;
-}
-img.hiit:hover {
-    background-color: black;
-    opacity: 25%;
-    transition: 0.2s;
-}
-img.yoga{
-    width: 50%;
-    margin: 20px auto;
-    transition: 0.2s;
-    float: left;
-}
-img.yoga:hover {
-    background-color: black;
-    opacity: 25%;
-    transition: 0.2s;
-}
-img.cardio{
-    width: 50%;
-    margin: 20px auto;
-    transition: 0.2s;
-    float: left;
-}
-img.cardio:hover {
-    background-color: black;
-    opacity: 25%;
-    transition: 0.2s;
-}
+
 footer{
     text-align: center;
-    bottom: 0px;
-    border-top: 1px solid white;
+    border-top: 1px solid gray;
     color:white;
+}
+
+h2.judul{
+    position: relative;
+    bottom: 200px;
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
+    font-size: 36px;
+}
+
+.description a{
+    text-decoration: none;
+    color: black;
 }

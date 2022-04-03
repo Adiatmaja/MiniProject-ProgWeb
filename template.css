@@ -45,8 +45,8 @@ hr{
 }
 
 h2{
-    color: grey;
-    background-color: rgb(32, 32, 32);
+    color: whitesmoke;
+    background-color: rgb(56, 56, 56);
     border-radius: 30px;
     text-align: center;
 }
@@ -56,7 +56,7 @@ h2{
 }
 
 .video h2{
-    margin: 5% 20% 3% 20%;
+    margin: 3% 20% 3% 20%;
 }
 
 .video iframe{
@@ -68,6 +68,7 @@ h2{
 header{
     position: sticky;
     top: 0px;
+    border-bottom: 1px solid gray;
 }
 
 .header{
@@ -109,15 +110,6 @@ div.searchBox {
     margin: 7px;
 }
 
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
 .container{
     width: 60%;
     margin: 0 20% 0% 20%;
@@ -127,7 +119,7 @@ hr {
 footer{
     text-align: center;
     bottom: 0px;
-    border-top: 1px solid white;
+    border-top: 1px solid gray;
     color:white;
 }
 
@@ -144,5 +136,6 @@ footer{
 }
 
 .image img{
-    width: 50%;
+    width: 800px;
+    height: 450px;
 }
