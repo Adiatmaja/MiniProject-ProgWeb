@@ -1,0 +1,140 @@
+body{
+    background-color: rgb(24, 24, 24);
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f2f2f2;
+
+}
+
+.title h1{
+    text-align: center;;
+    font-size: 60px;
+}
+
+hr{
+    margin: 2%;
+}
+
+.desc{
+    text-align: justify;
+    overflow: hidden;
+}
+
+.info{
+    float: right;
+    margin-left: 2.5%;
+    border-left: white 2px solid;
+    padding-left: 2.5%;
+    max-width: 40%;
+    overflow: hidden;
+    
+}
+
+.info table{
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.video{
+    text-align: center;
+    clear: right;
+    display: block;
+}
+
+h2{
+    color: whitesmoke;
+    background-color: rgb(56, 56, 56);
+    border-radius: 30px;
+    text-align: center;
+}
+
+.container h2{
+    margin: 5% 0% 3% 0%;
+}
+
+.video h2{
+    margin: 3% 20% 3% 20%;
+}
+
+.video iframe{
+    width:560px;
+    height:315px;
+    margin-bottom:10% ;
+}
+
+header{
+    position: sticky;
+    top: 0px;
+    border-bottom: 1px solid gray;
+}
+
+.header{
+    padding: 0.5%;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(32, 32, 32, 0.99);
+}
+.header-kiri {
+    padding: 20px 30px;
+    margin: 10px;
+    font-family: monospace;
+    font-size: 0.75cm;
+}
+.header a{
+    color: #f2f2f2;
+    text-align: center;
+    padding: 20px 30px;
+    text-decoration: none;
+    margin: 10px 0px;
+    transition: 0.2s;
+}
+.header a:hover{
+    background-color: #ddd;
+    color: black;
+    transition: 0.2s;
+}
+.header-kanan{
+    float: right;
+    display:flex;
+}
+
+div.searchBox {
+    border-radius: 40px;
+    padding: 20px 30px;
+    margin: 7px;
+}
+
+.container{
+    width: 60%;
+    margin: 0 20% 0% 20%;
+    display: table;
+}
+
+footer{
+    text-align: center;
+    bottom: 0px;
+    border-top: 1px solid gray;
+    color:white;
+}
+
+.info td:first-child{
+    font-weight: bold;
+}
+
+.desc p{
+    margin-top: 0px;
+}
+
+.image{
+    text-align: center;
+}
+
+.image img{
+    width: 800px;
+    height: 450px;
+}
