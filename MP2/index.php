@@ -11,6 +11,8 @@ INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
 INNER JOIN Image ON olahraga.IdImage=image.IdImage
 ";
 $result=mysqli_query($conn, $sql);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -34,15 +36,30 @@ $result=mysqli_query($conn, $sql);
                 </div>
                 <div class="header-kanan">
                     <a href="index.php">Home</a>
-                    <a href="login.php">Login</a>
-                    <div class="searchBox">
-                        <input class="searchInput"type="text" name="" placeholder="Cari Olahraga">
-                        <button class="searchButton" href="#">
+                    <?php
+                        session_start();
+                        if(!isset($_SESSION['username'])){
+                            echo ("<a href='login.php'>Login</a>");
+                        }else if(isset($_SESSION['username'])){
+                            echo"<a href='dashboard.php'>Dashboard</a>";
+                            echo'<form action="index.php" method="POST">
+                                <button type="submit" class="btn-link" value="logout" name="logout"> Logout </button></form>';
+                            
+                                if(isset($_POST["logout"])){
+                                    session_destroy();
+                                    header("Location: index.php");
+                                }
+                        }
+                    ?>
+                    
+                    <form class="searchBox" method="GET" action="search.php">
+                        <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga" required>
+                        <button class="searchButton">
                             <i class="material-icons">
                                 search
                             </i>
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="content">

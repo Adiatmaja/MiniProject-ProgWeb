@@ -38,14 +38,14 @@ if ($_POST){
             </div>
             <div class="header-kanan">
                 <a href="index.php">Home</a>
-                <div class="searchBox">
-                    <input class="searchInput"type="text" name="" placeholder="Cari Olahraga">
-                    <button class="searchButton" href="#">
-                        <i class="material-icons">
+                <form class="searchBox" method="GET" action="search.php">
+                    <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga" required>
+                    <button class="searchButton">
+                        <i class="material-icons">    
                             search
                         </i>
                     </button>
-                </div>
+                </form> 
             </div>
         </div>
     </header>
@@ -55,8 +55,9 @@ if ($_POST){
         <button class="w-100 btn btn-lg btn-primary" name="submit" value="sign-in" type="submit">Login</button>
         
     </form>
-    <footer>
+    
+</body>
+<footer>
         <p>© All Copyright goes to its rightful owner</p>
     </footer>
-</body>
 </html>

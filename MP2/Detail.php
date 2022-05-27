@@ -27,7 +27,6 @@ if($_GET){
         echo "data tidak ada";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -47,15 +46,29 @@ if($_GET){
             </div>
             <div class="header-kanan">
                 <a href="index.php">Home</a>
-                <a href="login.php">Login</a>
-                <div class="searchBox">
-                    <input class="searchInput"type="text" name="" placeholder="Cari Olahraga">
-                    <button class="searchButton" href="#">
-                        <i class="material-icons">
+                <?php
+                    session_start();
+                    if(!isset($_SESSION['username'])){
+                        echo ("<a href='login.php'>Login</a>");
+                    }else if(isset($_SESSION['username'])){
+                        echo"<a href='dashboard.php'>Dashboard</a>";
+                        echo'<form action="Detail.php?id='.$id.'" method="POST">
+                            <button type="submit" class="btn-link" value="logout" name="logout"> Logout </button></form>';
+                        
+                            if(isset($_POST["logout"])){
+                                session_destroy();
+                                header("Location:Detail.php?id=".$id);
+                            }    
+                    }
+                ?>
+                <form class="searchBox" method="GET" action="search.php">
+                    <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga" required>
+                    <button class="searchButton">
+                        <i class="material-icons">    
                             search
                         </i>
                     </button>
-                </div>
+                </form>        
             </div>
         </div>
     </header>
@@ -80,7 +93,7 @@ if($_GET){
                 </tr>
                 <tr>
                     <td>Duration</td>
-                    <td>: <?php echo $dur?></td>
+                    <td>: <?php echo $dur?> min</td>
                 </tr>
                 <tr>
                     <td>Level</td>
@@ -109,8 +122,9 @@ if($_GET){
         <h2>Video</h2>
         <?php echo $video?>
     </div>
-    <footer>
-        <p>© All Copyright goes to its rightful owner</p>
-    </footer>
+    
 </body>
+<footer>
+        <p>© All Copyright goes to its rightful owner</p>
+</footer>
 </html>

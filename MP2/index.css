@@ -4,7 +4,7 @@ body{
     margin: 0;
     padding: 0;
     color: #e8eaed;
-    
+    position: relative;
 }
 .header{
     padding: 0.5%;
@@ -19,19 +19,20 @@ body{
     font-family: monospace;
     font-size: 0.75cm;
 }
-.header a{
+.header-kanan a{
     color: #f2f2f2;
     text-align: center;
     padding: 20px 30px;
     text-decoration: none;
     margin: 10px 0px;
     transition: 0.2s;
+    font-size: medium;  
 }
-.header a:hover{
+/* .header a:hover{
     background-color: #ddd;
     color: black;
     transition: 0.2s;
-}
+} */
 .header-kanan{
     float: right;
     display:flex;
@@ -128,10 +129,7 @@ div .domain {
     font-size:larger;
     transition: 0.2s;
 }
-.footer a:hover {
-    color: tomato;
-    transition: 0.2s;
-}
+
 .dot {
     height: 15px;
     width: 15px;
@@ -157,4 +155,22 @@ h2.judul{
 .description a{
     text-decoration: none;
     color: black;
+    
+}
+
+.btn-link {
+    background: none!important;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: medium;  
+    padding: 0px;   
+}
+
+.header form{
+text-align: center;
+padding: 20px 30px;
+text-decoration: none;
+margin: 10px 0px;
+transition: 0.2s;
 }
