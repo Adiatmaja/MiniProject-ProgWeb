@@ -62,7 +62,7 @@ if($_GET){
                     }
                 ?>
                 <form class="searchBox" method="GET" action="search.php">
-                    <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga" required>
+                    <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga">
                     <button class="searchButton">
                         <i class="material-icons">    
                             search

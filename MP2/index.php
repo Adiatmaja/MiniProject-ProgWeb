@@ -9,6 +9,7 @@ INNER JOIN level ON olahraga.IdLevel=level.IdLevel
 INNER JOIN video ON olahraga.IdVideo=video.IdVideo
 INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
 INNER JOIN Image ON olahraga.IdImage=image.IdImage
+ORDER BY IdOlahraga
 ";
 $result=mysqli_query($conn, $sql);
 
@@ -53,7 +54,7 @@ $result=mysqli_query($conn, $sql);
                     ?>
                     
                     <form class="searchBox" method="GET" action="search.php">
-                        <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga" required>
+                        <input class="searchInput" type="text" name="search" placeholder="Cari Olahraga">
                         <button class="searchButton">
                             <i class="material-icons">
                                 search
@@ -78,7 +79,7 @@ $result=mysqli_query($conn, $sql);
             $result2=mysqli_query($conn, $sql2);
             if (mysqli_num_rows($result2)>0){
                 while($row2 = mysqli_fetch_assoc($result2)){
-                    $counter=0;
+                    
                     echo "
                     <h2>".$row2['NamaLevel']."</h2>
                     <div class='levels'>
@@ -86,17 +87,13 @@ $result=mysqli_query($conn, $sql);
                     if (mysqli_num_rows($result)>0){
                         while($row = mysqli_fetch_assoc($result)){
                             if($row["Level"]==$row2["NamaLevel"]){
-                                if($counter>=3){
-                                    echo "</div>";
-                                    echo "<div class='levels'>";
-                                    $counter=0;
-                                }
+                                
                                 echo "
                                 <div class='description'>
                                     <a href=detail.php?id=".$row['IdOlahraga']."><img src=".$row["Image"]." alt=''>
                                     <h2 class='judul'>".$row['NamaOlahraga']."</h2></a>
                                 </div>";
-                                $counter+=1;   
+                                   
                             }
                         }mysqli_data_seek($result,0);
                     }

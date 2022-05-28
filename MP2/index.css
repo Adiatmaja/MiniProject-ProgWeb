@@ -60,7 +60,8 @@ body{
 .levels {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 .levels img {
     width: 500px;
