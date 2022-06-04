@@ -22,7 +22,10 @@ INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
 INNER JOIN Image ON olahraga.IdImage=image.IdImage
 ORDER BY IdOlahraga
 ";
+$sql2 = "
+SELECT * FROM instruktur";
 $result=mysqli_query($conn, $sql);
+$result2=mysqli_query($conn, $sql2);
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +34,7 @@ $result=mysqli_query($conn, $sql);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard Admin</title>
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
@@ -77,15 +80,41 @@ $result=mysqli_query($conn, $sql);
                         echo "<td>".$row['Peralatan']."</td>";
                         echo "<td>".$row['Durasi']."</td>";
                         echo "<td>".$row['Instruktur']."</td>";
-                        echo "<td><a href=''>Edit </a><a href=''>Delete</a></td>";
+                        echo "<td><a href='data.php?id=".$row['IdOlahraga']."'>Edit</a><a href='delete.php?id=".$row['IdOlahraga']."'>Delete</a></td>";
                         echo "</tr>";
                     }
                 }
             ?>
         </table>
+        <div class="containerAdd">
+            <a class="add" href="data.php">Tambah Data</a>
+        </div>
+        <table class="instruktur">
+            <tr>
+                <th>No.</th>
+                <th>Instruktur</th>
+                <th>Action</th>
+            </tr>
+            <?php
+                if (mysqli_num_rows($result2)>0){
+                    $i = 1;
+                    while($row2 = mysqli_fetch_assoc($result2)){
+                        echo "<tr>";
+                        echo "<td>".$i."</td>";
+                        echo "<td>".$row2['NamaInstruktur']."</td>";
+                        echo "<td><a href='instruktur.php?id=".$row2['IdInstruktur']."'>Edit</a><a href='instrukturDelete.php?id=".$row2['IdInstruktur']."'>Delete</a></td>";
+                        echo "</tr>";
+                        $i++;
+                    }
+                }
+            ?>
+        </table>
+        <div class="containerAdd">
+            <a class="add" href="instruktur.php">Tambah Instruktur</a>
+        </div>
     </div>
 </body>
 <footer>
         <p>© All Copyright goes to its rightful owner</p>
-    </footer>
+</footer>
 </html>

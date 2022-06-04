@@ -14,7 +14,7 @@ if(isset($_SESSION["username"])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="login.css">
     <title>Document</title>
 </head>
 <body>
@@ -36,12 +36,13 @@ if(isset($_SESSION["username"])){
             </div>
         </div>
     </header>
-    <form action="login.php" method="post">
-        <input type="text" placeholder="type your username" name="username" required>
-        <input type="password" placeholder="type your password" name="password" required>
+    <form class="form-login" action="login.php" method="post">
+        <h1>Login Admin</h1>
+        <input type="text" placeholder="type your username" name="username" required><br>
+        <input type="password" placeholder="type your password" name="password" required><br>
         <button class="w-100 btn btn-lg btn-primary" name="submit" value="sign-in" type="submit">Login</button>
-        
     </form>
+    
     <?php
         if ($_POST){
             $user=$_POST["username"];
