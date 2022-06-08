@@ -2,14 +2,23 @@
 require_once("connection.php");
 session_start();
 
-// Sampe Pre Fill Link Video
+if(!isset($_SESSION["username"])){
+    header("Location: login.php");
+}elseif (isset($_POST["logout"])){
+    session_destroy();
+    header("Location:login.php");
+}
+
+$user=$_SESSION["username"];
+
+// Sampe Pre Fill Link Video & Gambar
 
 if (isset($_GET["id"])){
     $IdOlahraga = $_GET["id"];
 
     $sql="
     SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
+    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.IdInstruktur, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
     FROM olahraga
     INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
     INNER JOIN level ON olahraga.IdLevel=level.IdLevel
@@ -21,7 +30,13 @@ if (isset($_GET["id"])){
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_assoc($result);
 
+    $sqlInstruktur = "SELECT * FROM instruktur";
+    $resultInstruktur = mysqli_query($conn,$sqlInstruktur);
+
     $NamaOlahraga = $data["NamaOlahraga"];
+    $NamaTipe = $data["TipeOlahraga"];
+    $NamaLevel = $data["Level"];
+    $IdInstruktur = $data["IdInstruktur"];
     $Deskripsi = $data["Deskripsi"];
     $Peralatan = $data["Peralatan"];
     $IdVideo = $data["Video"];
@@ -154,8 +169,6 @@ if ($_POST){
     }
 }
 
-
-$user=$_SESSION["username"];
 ?>
 
 <!DOCTYPE html>
@@ -201,28 +214,30 @@ $user=$_SESSION["username"];
             <tr>
                 <td>Tipe Olahraga</td>
                 <td><select name="IdTipe">
-                    <option value="1">Yoga</option>
-                    <option value="2">HIIT</option>
-                    <option value="3">Cardio</option>
+
+                    <option value="1" <?php if($NamaTipe == 'Yoga'){echo " selected =\"selected\"";} ?>>Yoga</option>
+                    <option value="2" <?php if($NamaTipe == 'HIIT'){echo " selected =\"selected\"";} ?>>HIIT</option>
+                    <option value="3" <?php if($NamaTipe == 'Cardio'){echo " selected =\"selected\"";} ?>>Cardio</option>
                 </select></td>
             </tr>
             <tr>
                 <td>Level Olahraga</td>
                 <td><select name="IdLevel">
-                    <option value="1">Beginner</option>
-                    <option value="2">Intermediate</option>
-                    <option value="3">Advanced</option>
+                    <option value="1" <?php if($NamaLevel == 'Beginner'){echo " selected =\"selected\"";} ?>>Beginner</option>
+                    <option value="2" <?php if($NamaLevel == 'Intermediate'){echo " selected =\"selected\"";} ?>>Intermediate</option>
+                    <option value="3" <?php if($NamaLevel == 'Advanced'){echo " selected =\"selected\"";} ?>>Advanced</option>
                 </select></td>
             </tr>
             <tr>
                 <td>Instruktur</td>
                 <td><select name="IdInstruktur">
-                    <option value="1">Jason Charchan</option>
-                    <option value="2">Adriene Mishler</option>
-                    <option value="3">Zen Dude</option>
-                    <option value="4">Sashah Handal</option>
-                    <option value="5">Charlee Atkens</option>
-                    <option value="6">Briohny Smyth</option>
+                    <?php while($rowInstruktur = mysqli_fetch_row($resultInstruktur)) {
+                        echo "<option value = '{$rowInstruktur[0]}'";
+                        if($rowInstruktur[0] == $IdInstruktur){
+                            echo " selected =\"selected\"";
+                        }
+                        echo ">{$rowInstruktur[1]}</option>";
+                    } ?>
                 </select></td>
             </tr>
             <tr>

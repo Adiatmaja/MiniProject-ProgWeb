@@ -2,6 +2,15 @@
 require_once("connection.php");
 session_start();
 
+if(!isset($_SESSION["username"])){
+    header("Location: login.php");
+}elseif (isset($_POST["logout"])){
+    session_destroy();
+    header("Location:login.php");
+}
+
+$user=$_SESSION["username"];
+
 $id = null;
 if (isset($_GET["id"])){
     $id = $_GET["id"];
@@ -62,7 +71,6 @@ if ($_POST){
         }
     } 
 }
-$user=$_SESSION["username"];
 ?>
 
 <!DOCTYPE html>
