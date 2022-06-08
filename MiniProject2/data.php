@@ -13,6 +13,9 @@ $user=$_SESSION["username"];
 
 // Sampe Pre Fill Link Video & Gambar
 
+$sqlInstruktur = "SELECT * FROM instruktur";
+$resultInstruktur = mysqli_query($conn,$sqlInstruktur);
+
 if (isset($_GET["id"])){
     $IdOlahraga = $_GET["id"];
 
@@ -30,9 +33,6 @@ if (isset($_GET["id"])){
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_assoc($result);
 
-    $sqlInstruktur = "SELECT * FROM instruktur";
-    $resultInstruktur = mysqli_query($conn,$sqlInstruktur);
-
     $NamaOlahraga = $data["NamaOlahraga"];
     $NamaTipe = $data["TipeOlahraga"];
     $NamaLevel = $data["Level"];
@@ -43,6 +43,9 @@ if (isset($_GET["id"])){
     $Durasi = $data["Durasi"];
 } else {
     $NamaOlahraga = '';
+    $NamaTipe = '';
+    $NamaLevel = '';
+    $IdInstruktur = '';
     $Deskripsi = '';
     $Peralatan = '';
     $IdVideo = '';
@@ -57,25 +60,24 @@ if ($_POST){
         $IdInstruktur = $_POST["IdInstruktur"];
         $Deskripsi = $_POST["Deskripsi"];
         $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = "<iframe src='" . $_POST["IdVideo"] . "'></iframe>";
+        $LinkVideo = "<iframe src='" .$_POST["LinkVideo"]. "'></iframe>";
         $Durasi = $_POST["Durasi"];
         $IdImage = $_POST["IdImage"];
         // Insert Tabel Video
-        $sql = "INSERT INTO video VALUES ('', '$LinkVideo', '$Durasi')";
-        if (mysqli_query($conn, $sql)) {
+        $sqlVideo = "INSERT INTO video VALUES ('', '$LinkVideo', '$Durasi')";
+        if (mysqli_query($conn, $sqlVideo)) {
             // Insert Tabel Image
             if (isset($_FILES)){
                 $targetFolder = "pictures/";
                 $path = $targetFolder.$_FILES['Image']['name'];
-                $extension = pathinfo($path, PATHINFO_EXTENSION);
                 if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                    $sql = "INSERT INTO image VALUES ('', '$path')";
-                    if (mysqli_query($conn, $sql)) {
+                    $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
+                    if (mysqli_query($conn, $sqlGambar)) {
                         // Insert Tabel Olahraga
                         $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
                         $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                        $sql = "INSERT INTO olahraga VALUES ('', '$NamaOlahraga', '$IdTipe', '$IdLevel', '$IdInstruktur', '$Deskripsi', $Peralatan, $Video, $Image)";
-                        if (mysqli_query($conn, $sql)) {
+                        $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '$NamaOlahraga', '$IdTipe', '$IdLevel', '$IdInstruktur', '$Deskripsi', $Peralatan, $Video, $Image)";
+                        if (mysqli_query($conn, $sqlOlahraga)) {
                             echo "
                             <script>
                                 alert('Data Berhasil Ditambah');
@@ -115,7 +117,7 @@ if ($_POST){
         $IdInstruktur = $_POST["IdInstruktur"];
         $Deskripsi = $_POST["Deskripsi"];
         $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = "<iframe src='" . $_POST["IdVideo"] . "'></iframe>";
+        $LinkVideo = "<iframe src='".$_POST["LinkVideo"]."'></iframe>";
         $Durasi = $_POST["Durasi"];
         $IdImage = $_POST["IdImage"];
         // Update Tabel Video
@@ -214,7 +216,7 @@ if ($_POST){
             <tr>
                 <td>Tipe Olahraga</td>
                 <td><select name="IdTipe">
-
+                    <option value=""></option>
                     <option value="1" <?php if($NamaTipe == 'Yoga'){echo " selected =\"selected\"";} ?>>Yoga</option>
                     <option value="2" <?php if($NamaTipe == 'HIIT'){echo " selected =\"selected\"";} ?>>HIIT</option>
                     <option value="3" <?php if($NamaTipe == 'Cardio'){echo " selected =\"selected\"";} ?>>Cardio</option>
@@ -223,6 +225,7 @@ if ($_POST){
             <tr>
                 <td>Level Olahraga</td>
                 <td><select name="IdLevel">
+                    <option value=""></option>
                     <option value="1" <?php if($NamaLevel == 'Beginner'){echo " selected =\"selected\"";} ?>>Beginner</option>
                     <option value="2" <?php if($NamaLevel == 'Intermediate'){echo " selected =\"selected\"";} ?>>Intermediate</option>
                     <option value="3" <?php if($NamaLevel == 'Advanced'){echo " selected =\"selected\"";} ?>>Advanced</option>
@@ -231,6 +234,7 @@ if ($_POST){
             <tr>
                 <td>Instruktur</td>
                 <td><select name="IdInstruktur">
+                    <option value=""></option>
                     <?php while($rowInstruktur = mysqli_fetch_row($resultInstruktur)) {
                         echo "<option value = '{$rowInstruktur[0]}'";
                         if($rowInstruktur[0] == $IdInstruktur){
