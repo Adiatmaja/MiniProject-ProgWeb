@@ -11,7 +11,7 @@ if(!isset($_SESSION["username"])){
 
 $user = $_SESSION["username"];
 
-$sql = "DELETE FROM olahraga WHERE IdOlahraga = '".$_GET["IdOlahraga"]."'";
+$sql = "DELETE FROM olahraga WHERE IdOlahraga = '".$_GET["id"]."'";
 if(mysqli_query($conn, $sql)){
     echo "
     <script>
