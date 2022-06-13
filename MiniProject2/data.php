@@ -16,7 +16,7 @@ $user=$_SESSION["username"];
 $sqlInstruktur = "SELECT * FROM instruktur";
 $resultInstruktur = mysqli_query($conn,$sqlInstruktur);
 
-$targetFolder = "pictures/";
+$targetFolder = "assets/";
 
 if (isset($_GET["id"])){
     $IdOlahraga = $_GET["id"];
@@ -34,7 +34,7 @@ if (isset($_GET["id"])){
     ";
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_assoc($result);
-
+    $id=$data["IdOlahraga"];
     $NamaOlahraga = $data["NamaOlahraga"];
     $NamaTipe = $data["TipeOlahraga"];
     $NamaLevel = $data["Level"];
@@ -55,74 +55,14 @@ if (isset($_GET["id"])){
 }
 
 if ($_POST){
-    if (empty($_GET["id"])) {
+    if ($_POST["IdOlahraga"]!=null) {
         $NamaOlahraga = $_POST["NamaOlahraga"];
         $IdTipe = $_POST["IdTipe"];
         $IdLevel = $_POST["IdLevel"];
         $IdInstruktur = $_POST["IdInstruktur"];
         $Deskripsi = $_POST["Deskripsi"];
         $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = '<iframe src="' .$_POST["LinkVideo"]. '"></iframe>';
-        $Durasi = $_POST["Durasi"];
-
-        // Insert Tabel Video
-        $sqlVideo = "INSERT INTO video VALUES ('', '".$LinkVideo."', '".$Durasi."')";
-        if (mysqli_query($conn, $sqlVideo)) {
-            // Insert Tabel Image
-            if (isset($_FILES)){
-                $path = $targetFolder.$_FILES['Image']['name'];
-                if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                    $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
-                    if (mysqli_query($conn, $sqlGambar)) {
-                        // Insert Tabel Olahraga
-                        $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
-                        $resultVideo = mysqli_query($conn, $Video);
-                        $dataVideo = mysqli_fetch_assoc($resultVideo);
-                        $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                        $resultImage = mysqli_query($conn, $Image);
-                        $dataImage = mysqli_fetch_assoc($resultImage);
-                        $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '".$NamaOlahraga."', '".$IdTipe."', '".$IdLevel."', '".$IdInstruktur."', '".$Deskripsi."', '".$Peralatan."', '".$dataVideo["IdVideo"]."', '".$dataImage["IdImage"]."')";
-                        if (mysqli_query($conn, $sqlOlahraga)) {
-                            echo "
-                            <script>
-                                alert('Data Berhasil Ditambah');
-                                document.location.href = 'dashboard.php';
-                            </script>
-                            ";
-                        } else {
-                            echo "
-                            <script>
-                                alert('Data Gagal Ditambah');
-                                document.location.href = 'dashboard.php';
-                            </script>
-                            ";
-                        }
-                    }
-                } else {
-                    echo "
-                    <script>
-                        alert('Gagal Upload Gambar');
-                        document.location.href = 'dashboard.php';
-                    </script>
-                    ";
-                }
-            }
-        } else {
-            echo "
-            <script>
-                alert('Data Video Gagal Ditambah');
-                document.location.href = 'dashboard.php';
-            </script>
-            ";
-        }
-    } else if ($_GET["id"]) {
-        $NamaOlahraga = $_POST["NamaOlahraga"];
-        $IdTipe = $_POST["IdTipe"];
-        $IdLevel = $_POST["IdLevel"];
-        $IdInstruktur = $_POST["IdInstruktur"];
-        $Deskripsi = $_POST["Deskripsi"];
-        $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = '<iframe src="' .$_POST["LinkVideo"]. '"></iframe>';
+        $LinkVideo = $_POST["LinkVideo"];
         $Durasi = $_POST["Durasi"];
 
         // Insert Tabel Video
@@ -189,7 +129,67 @@ if ($_POST){
             </script>
             ";
         }
-    }
+    }else {
+        $NamaOlahraga = $_POST["NamaOlahraga"];
+        $IdTipe = $_POST["IdTipe"];
+        $IdLevel = $_POST["IdLevel"];
+        $IdInstruktur = $_POST["IdInstruktur"];
+        $Deskripsi = $_POST["Deskripsi"];
+        $Peralatan = $_POST["Peralatan"];
+        $LinkVideo = $_POST["LinkVideo"];
+        $Durasi = $_POST["Durasi"];
+
+        // Insert Tabel Video
+        $sqlVideo = "INSERT INTO video VALUES ('', '".$LinkVideo."', '".$Durasi."')";
+        if (mysqli_query($conn, $sqlVideo)) {
+            // Insert Tabel Image
+            if (isset($_FILES)){
+                $path = $targetFolder.$_FILES['Image']['name'];
+                if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
+                    $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
+                    if (mysqli_query($conn, $sqlGambar)) {
+                        // Insert Tabel Olahraga
+                        $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
+                        $resultVideo = mysqli_query($conn, $Video);
+                        $dataVideo = mysqli_fetch_assoc($resultVideo);
+                        $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
+                        $resultImage = mysqli_query($conn, $Image);
+                        $dataImage = mysqli_fetch_assoc($resultImage);
+                        $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '".$NamaOlahraga."', '".$IdTipe."', '".$IdLevel."', '".$IdInstruktur."', '".$Deskripsi."', '".$Peralatan."', '".$dataVideo["IdVideo"]."', '".$dataImage["IdImage"]."')";
+                        if (mysqli_query($conn, $sqlOlahraga)) {
+                            echo "
+                            <script>
+                                alert('Data Berhasil Ditambah');
+                                document.location.href = 'dashboard.php';
+                            </script>
+                            ";
+                        } else {
+                            echo "
+                            <script>
+                                alert('Data Gagal Ditambah');
+                                document.location.href = 'dashboard.php';
+                            </script>
+                            ";
+                        }
+                    }
+                } else {
+                    echo "
+                    <script>
+                        alert('Gagal Upload Gambar');
+                        document.location.href = 'dashboard.php';
+                    </script>
+                    ";
+                }
+            }
+        } else {
+            echo "
+            <script>
+                alert('Data Video Gagal Ditambah');
+                document.location.href = 'dashboard.php';
+            </script>
+            ";
+        }
+    } 
 }
 
 ?>
@@ -229,7 +229,7 @@ if ($_POST){
     <a class="back" href="dashboard.php">Kembali</a>
     <form class="formdata" action="data.php" method="post" enctype="multipart/form-data">
         <table>
-            <input type="hidden" name="IdOlahraga" value="<?= $data["IdOlahraga"];?>">
+            <input type="hidden" name="IdOlahraga" value="<?php if($IdOlahraga!=0) {echo $Id;}?>">
             <tr>
                 <td>Nama Olahraga</td>
                 <td><input type="text" name="NamaOlahraga" value="<?= $NamaOlahraga ?>" required></td>
@@ -275,7 +275,7 @@ if ($_POST){
             </tr>
             <tr>
                 <td>Link Video</td>
-                <td><input type="url" name="LinkVideo" value="<?= $IdVideo ?>" required></td>
+                <td><input type="text" name="LinkVideo" value='<?= $IdVideo ?>' required></td>
             </tr>
             <tr>
                 <td>Durasi Video</td>
@@ -283,7 +283,7 @@ if ($_POST){
             </tr>
             <tr>
                 <td>Gambar Olahraga</td>
-                <td><input type="file" name="Image" required></td>
+                <td><input type="file" name="Image" value="" required></td>
             </tr>
             <tr>
                 <td class="submit" colspan="2"><input class="button" type="submit" class="submit" value="submit"></td>

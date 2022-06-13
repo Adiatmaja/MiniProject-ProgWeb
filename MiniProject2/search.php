@@ -18,110 +18,36 @@ if($_GET){
         ";
     }else{
         if($_GET['Nama']==null){
-            unset($_GET['Nama']);
+            $nama="= 0";
+        }else{
+            $nama=$_GET['Nama'];
+            $nama="LIKE '%".$nama."%'";
         }
         if($_GET['tipe']==null){
-            unset($_GET['tipe']);
+            $tipe=0;
+        }else{
+            $tipe=$_GET['tipe'];
+            $tipe="'".$tipe."'";
         }
         if($_GET['level']==null){
-            unset($_GET['level']);
-        }
-        if(isset($_GET['Nama'])){
-            $nama=$_GET['Nama'];
-            $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where olahraga.NamaOlahraga LIKE '%".$nama."%'
-                    ";
-            if(isset($_GET['tipe'])){
-                $tipe=$_GET['tipe'];
-                $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where olahraga.NamaOlahraga LIKE '%".$nama."%' and tipe.NamaTipe='".$tipe."'
-                    ";
-                if(isset($_GET['level'])){
-                    $level=$_GET['level'];
-                    $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where olahraga.NamaOlahraga LIKE '%".$nama."%' and tipe.NamaTipe='".$tipe."' and level.NamaLevel='".$level."'
-                    ";
-                }
-            }else if(isset($_GET['level'])){
-                $level=$_GET['level'];
-                $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where olahraga.NamaOlahraga LIKE '%".$nama."%' and level.NamaLevel='".$level."'
-                    ";
-            }
-        }else if(isset($_GET['tipe'])){
-            $tipe=$_GET['tipe'];
-            $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where tipe.NamaTipe='".$tipe."'
-                    ";
-            if(isset($_GET['level'])){
-                $level=$_GET['level'];
-                $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where tipe.NamaTipe='".$tipe."' and level.NamaLevel='".$level."'
-                    ";
-            }
-        }
-        else if(isset($_GET['level'])){
+            $level=0;
+        }else{
             $level=$_GET['level'];
-            $sql="
-                    SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-                    olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-                    FROM olahraga
-                    INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-                    INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-                    INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-                    INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-                    INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-                    where level.NamaLevel='".$level."'
-                    ";
+            $level="'".$level."'";
         }
+
+        $sql="
+        SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
+        olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
+        FROM olahraga
+        INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
+        INNER JOIN level ON olahraga.IdLevel=level.IdLevel
+        INNER JOIN video ON olahraga.IdVideo=video.IdVideo
+        INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
+        INNER JOIN Image ON olahraga.IdImage=image.IdImage 
+        where olahraga.NamaOlahraga ".$nama." and tipe.NamaTipe = ".$tipe." and level.NamaLevel= ".$level."
+        ";
+        
         
     }
 }

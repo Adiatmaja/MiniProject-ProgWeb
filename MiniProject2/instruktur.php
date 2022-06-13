@@ -27,29 +27,9 @@ if (isset($_GET["id"])){
 
 // IF mungkin masih salah - Gabisa update
 if ($_POST){
-    if (empty($_GET["id"])) {
+    if (($_POST["IdInstruktur"])!=null) {
         $NamaInstruktur = $_POST["NamaInstruktur"];
-    
-        $sql = "INSERT INTO instruktur VALUES ('', '$NamaInstruktur')";
-
-        if (mysqli_query($conn, $sql)) {
-            echo "
-            <script>
-                alert('Data Berhasil Ditambah');
-                document.location.href = 'dashboard.php';
-            </script>
-            ";
-        } else {
-            echo "
-            <script>
-                alert('Data Gagal Ditambah');
-                document.location.href = 'dashboard.php';
-            </script>
-            ";
-        }
-    } else if (isset($_GET["id"])) {
-        $NamaInstruktur = $_POST["NamaInstruktur"];
-
+        $IdInstruktur = $_POST["IdInstruktur"];
         $sql = "UPDATE instruktur SET 
         NamaInstruktur = '".$NamaInstruktur."' 
         WHERE IdInstruktur = '".$IdInstruktur."' ";
@@ -65,6 +45,26 @@ if ($_POST){
             echo "
             <script>
                 alert('Update Data Gagal');
+                document.location.href = 'dashboard.php';
+            </script>
+            ";
+        }
+    } else {
+        $NamaInstruktur = $_POST["NamaInstruktur"];
+    
+        $sql = "INSERT INTO instruktur VALUES ('', '$NamaInstruktur')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "
+            <script>
+                alert('Data Berhasil Ditambah');
+                document.location.href = 'dashboard.php';
+            </script>
+            ";
+        } else {
+            echo "
+            <script>
+                alert('Data Gagal Ditambah');
                 document.location.href = 'dashboard.php';
             </script>
             ";
@@ -107,7 +107,7 @@ if ($_POST){
     <a href="dashboard.php">Kembali</a>
     <form class="formdata" action="instruktur.php" method="post">
         <table>
-            <input type="hidden" name="IdInstruktur" value="<?= $data["IdInstruktur"];?>">
+            <input type="hidden" name="IdInstruktur" value="<?php if($id!=0) {echo $IdInstruktur;}?>">
             <tr>
                 <td>Nama Instruktur</td>
                 <td><input type="text" name="NamaInstruktur" value="<?= $nama;?>" required></td>

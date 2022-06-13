@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2022 at 08:20 PM
+-- Generation Time: Jun 14, 2022 at 01:48 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -43,26 +43,6 @@ INSERT INTO `admin` (`IdAdmin`, `Username`, `Password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bridgeperalatan`
---
-
-CREATE TABLE `bridgeperalatan` (
-  `IdBridge` int(11) NOT NULL,
-  `IdOlahraga` int(11) NOT NULL,
-  `IdPeralatan` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `bridgeperalatan`
---
-
-INSERT INTO `bridgeperalatan` (`IdBridge`, `IdOlahraga`, `IdPeralatan`) VALUES
-(1, 4, 1),
-(2, 8, 2);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `image`
 --
 
@@ -76,15 +56,15 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`IdImage`, `ImagePath`) VALUES
-(1, '\"https://gymfitnessindo.com/wp-content/uploads/2021/12/Jumping-Jacks-1024x640.jpg\"'),
-(2, '\"https://www.gaia.com/wp-content/uploads/Trianglev2_DaynaSeraye-1.jpg\"'),
-(3, '\"https://dsgmedia.blob.core.windows.net/pub/2018/08/HowToDoTreePose.jpg\"'),
-(4, '\"https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/side-view-of-female-athlete-skipping-with-jumping-royalty-free-image-1614014173.?crop=0.834xw:0.626xh;0,0.237xh&resize=1200:*\"'),
-(5, '\"https://www.femina.co.id/images/images/SquatJump-life.spartan.jpg\"'),
-(6, '\"https://experiencelife.lifetime.life/wp-content/uploads/2021/07/bid-side-plank-1280x720.jpg\"'),
-(7, '\"https://cdn.mos.cms.futurecdn.net/JDdefEyTSFj9kt5QvjZqtB.jpg\"'),
-(8, '\"https://blogstudio.s3.amazonaws.com/yogaclicks/5843695cf884349dceb00048e6f3e873.png\"'),
-(9, '\"https://lmimirror3pvr.azureedge.net/static/media/14784/3cc9ada3-2314-4241-8efd-892489ba0d6a/squatburpee-960-540.jpg\"');
+(1, 'assets/JumpingJacks.jpg'),
+(2, 'assets/ChairPose.jpg'),
+(3, 'assets/TreePose.jpg'),
+(4, 'assets/JumpRope.jpg'),
+(5, 'assets/SquatJump.jpg'),
+(6, 'assets/SidePlank.jpg'),
+(7, 'assets/MountainClimber.jpg'),
+(8, 'assets/BoatPose.png'),
+(9, 'assets/Burpees.jpg');
 
 -- --------------------------------------------------------
 
@@ -165,25 +145,6 @@ INSERT INTO `olahraga` (`IdOlahraga`, `NamaOlahraga`, `IdTipe`, `IdLevel`, `IdIn
 -- --------------------------------------------------------
 
 --
--- Table structure for table `peralatan`
---
-
-CREATE TABLE `peralatan` (
-  `IdPeralatan` int(11) NOT NULL,
-  `NamaPeralatan` varchar(55) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `peralatan`
---
-
-INSERT INTO `peralatan` (`IdPeralatan`, `NamaPeralatan`) VALUES
-(1, 'Tali Skipping'),
-(2, 'Matras');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tipe`
 --
 
@@ -239,14 +200,6 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`IdAdmin`);
 
 --
--- Indexes for table `bridgeperalatan`
---
-ALTER TABLE `bridgeperalatan`
-  ADD PRIMARY KEY (`IdBridge`),
-  ADD KEY `FK_peraelatan` (`IdPeralatan`),
-  ADD KEY `FK_olahraga` (`IdOlahraga`);
-
---
 -- Indexes for table `image`
 --
 ALTER TABLE `image`
@@ -276,12 +229,6 @@ ALTER TABLE `olahraga`
   ADD KEY `FK_instruktur` (`IdInstruktur`);
 
 --
--- Indexes for table `peralatan`
---
-ALTER TABLE `peralatan`
-  ADD PRIMARY KEY (`IdPeralatan`);
-
---
 -- Indexes for table `tipe`
 --
 ALTER TABLE `tipe`
@@ -304,22 +251,16 @@ ALTER TABLE `admin`
   MODIFY `IdAdmin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `bridgeperalatan`
---
-ALTER TABLE `bridgeperalatan`
-  MODIFY `IdBridge` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `IdImage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `IdImage` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `instruktur`
 --
 ALTER TABLE `instruktur`
-  MODIFY `IdInstruktur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `IdInstruktur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `level`
@@ -331,13 +272,7 @@ ALTER TABLE `level`
 -- AUTO_INCREMENT for table `olahraga`
 --
 ALTER TABLE `olahraga`
-  MODIFY `IdOlahraga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `peralatan`
---
-ALTER TABLE `peralatan`
-  MODIFY `IdPeralatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdOlahraga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tipe`
@@ -349,18 +284,11 @@ ALTER TABLE `tipe`
 -- AUTO_INCREMENT for table `video`
 --
 ALTER TABLE `video`
-  MODIFY `IdVideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `IdVideo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `bridgeperalatan`
---
-ALTER TABLE `bridgeperalatan`
-  ADD CONSTRAINT `FK_olahraga` FOREIGN KEY (`IdOlahraga`) REFERENCES `olahraga` (`IdOlahraga`),
-  ADD CONSTRAINT `FK_peraelatan` FOREIGN KEY (`IdPeralatan`) REFERENCES `peralatan` (`IdPeralatan`);
 
 --
 -- Constraints for table `olahraga`
