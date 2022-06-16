@@ -17,15 +17,15 @@ if($_GET){
         where olahraga.NamaOlahraga='".$search."' or tipe.NamaTipe='".$search."' or level.NamaLevel='".$search."'
         ";
     }else{
-        
-        
+        if($_GET['Nama']==null&&$_GET['tipe']==null&&$_GET['level']==null){
+        }else{
             if($_GET['Nama']==null){
                 $nama="= 0";
             }else{
                 $nama=$_GET['Nama'];
                 $nama="LIKE '%".$nama."%'";
             }
-            if($_GET['Nama']==null){
+            if($_GET['tipe']==null){
                 $tipe=0;
             }else{
                 $tipe=$_GET['tipe'];
@@ -37,21 +37,19 @@ if($_GET){
                 $level=$_GET['level'];
                 $level="'".$level."'";
             }
-        
 
-        $sql="
-        SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
-        olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
-        FROM olahraga
-        INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
-        INNER JOIN level ON olahraga.IdLevel=level.IdLevel
-        INNER JOIN video ON olahraga.IdVideo=video.IdVideo
-        INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-        INNER JOIN Image ON olahraga.IdImage=image.IdImage 
-        where olahraga.NamaOlahraga ".$nama." and tipe.NamaTipe = ".$tipe." and level.NamaLevel= ".$level."
-        ";
-        
-        
+            $sql="
+            SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
+            olahraga.Deskripsi as Deskripsi, video.Durasi as Durasi, instruktur.NamaInstruktur as Instruktur, video.LinkVideo as Video, image.ImagePath as Image  
+            FROM olahraga
+            INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
+            INNER JOIN level ON olahraga.IdLevel=level.IdLevel
+            INNER JOIN video ON olahraga.IdVideo=video.IdVideo
+            INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
+            INNER JOIN Image ON olahraga.IdImage=image.IdImage 
+            where olahraga.NamaOlahraga ".$nama." and tipe.NamaTipe = ".$tipe." and level.NamaLevel= ".$level."
+            ";
+        }
     }
 }
 ?>
@@ -155,9 +153,6 @@ if($_GET){
         }
 </script>
     <?php
-    if($_GET['Nama']==null&&$_GET['Nama']==null&&$_GET['level']==null){
-        echo "<p class='s'> data tidak ditemukan</p>";
-    }else{
         $result=mysqli_query($conn, $sql);
         if (mysqli_num_rows($result)>0){
             if(isset($search)){
@@ -173,7 +168,6 @@ if($_GET){
         }else{
             echo "<p class='s'> data tidak ditemukan</p>";
         }
-    }
     ?>
     
 </body>
