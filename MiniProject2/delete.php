@@ -14,15 +14,16 @@ $user = $_SESSION["username"];
 $sqlSelectId = "SELECT IdVideo, IdImage FROM olahraga WHERE IdOlahraga = '".$_GET["id"]."'";
 $result = mysqli_query($conn, $sqlSelectId);
 $data = mysqli_fetch_assoc($result);
-$sqlSelectGambar = "SELECT ImagePath FROM gambar WHERE IdImage = '".$data["IdImage"]."'";
+$sqlSelectGambar = "SELECT ImagePath FROM image WHERE IdImage = '".$data["IdImage"]."'";
 $result2 = mysqli_query($conn, $sqlSelectGambar);
+$data2 = mysqli_fetch_assoc($result2);
 $sqlDeleteOlahraga = "DELETE FROM olahraga WHERE IdOlahraga = '".$_GET["id"]."'";
 $sqlDeleteVideo = "DELETE FROM video WHERE IdVideo = '".$data["IdVideo"]."'";
 $sqlDeleteImage = "DELETE FROM image WHERE IdImage = '".$data["IdImage"]."'";
 
 if(mysqli_query($conn, $sqlDeleteOlahraga)){
     if(mysqli_query($conn, $sqlDeleteVideo)){
-        if(mysqli_query($conn, $sqlDeleteImage)){
+        if(mysqli_query($conn, $sqlDeleteImage) && unlink($data2["ImagePath"])){
             echo "
             <script>
                 alert('Data Berhasil Dihapus');
