@@ -73,6 +73,10 @@ if ($_POST){
             $dataSelectVideoGambar = mysqli_fetch_assoc($resultSelectVideoGambar);
             $IdVideo = $dataSelectVideoGambar["IdVideo"];
             $IdImage = $dataSelectVideoGambar["IdImage"];
+            $sqlSelectGambar = "SELECT ImagePath FROM image WHERE IdImage = '".$IdImage."'";
+            $resultSelectGambar = mysqli_query($conn,$sqlSelectGambar);
+            $dataSelectGambar = mysqli_fetch_assoc($resultSelectGambar);
+            $OldImage = $dataSelectGambar["ImagePath"];
             
             // Cek Format File
             $extension = pathinfo($_FILES["Image"]["name"], PATHINFO_EXTENSION);
@@ -111,7 +115,7 @@ if ($_POST){
                                                 IdVideo = '".$dataVideo["IdVideo"]."', 
                                                 IdImage = '".$dataImage["IdImage"]."' 
                                                 WHERE IdOlahraga = '".$IdOlahraga."'";
-                                if (mysqli_query($conn, $sqlOlahraga)) {
+                                if (mysqli_query($conn, $sqlOlahraga) && unlink($OldImage)) {
                                     echo "
                                     <script>
                                         alert('Data Berhasil Diupdate');
