@@ -15,7 +15,7 @@ if(isset($_SESSION["username"])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
-    <title>Document</title>
+    <title>Login Admin</title>
 </head>
 <body>
 <header>
@@ -38,9 +38,10 @@ if(isset($_SESSION["username"])){
     </header>
     <form class="form-login" action="login.php" method="post">
         <h1>Login Admin</h1>
-        <input type="text" placeholder="type your username" name="username" required><br>
-        <input type="password" placeholder="type your password" name="password" required><br>
-        <button class="w-100 btn btn-lg btn-primary" name="submit" value="sign-in" type="submit">Login</button>
+        <input type="text" id="username" placeholder="type your username" name="username"><br>
+        <input type="password" id="password" placeholder="type your password" name="password"><br>
+        <button class="w-100 btn btn-lg btn-primary" name="submit" value="sign-in" type="submit" onclick="validationLogin()">Login</button>
+        <p id="alert" class="alert"></p>
     </form>
     
     <?php
@@ -60,6 +61,18 @@ if(isset($_SESSION["username"])){
             }
         }
     ?>
+    
+    <script type="text/javascript">
+        var inpUsername = document.getElementById("username");
+        var inpPassword = document.getElementById("password");
+
+        function validationLogin(){
+            if(inpUsername.value === "" || inpPassword.value === ""){
+                document.getElementById("alert").innerHTML = "Username atau Password tidak boleh kosong";
+                event.preventDefault();
+            }
+        }
+    </script>
     
 </body>
 <footer>

@@ -97,7 +97,10 @@ th, td {
 .formdata td:last-child{
     text-align: right;
 }
-
+.formdata tr.alert td.alert{
+    text-align: center;
+    color: red;
+}
 .formdata tr:last-child .submit{
     text-align: center;
 }

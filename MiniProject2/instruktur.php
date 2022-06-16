@@ -25,7 +25,6 @@ if (isset($_GET["id"])){
     $nama = '';
 }
 
-// IF mungkin masih salah - Gabisa update
 if ($_POST){
     if (($_POST["IdInstruktur"])!=null) {
         $NamaInstruktur = $_POST["NamaInstruktur"];
