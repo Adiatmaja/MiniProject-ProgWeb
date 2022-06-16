@@ -30,7 +30,7 @@ if (isset($_GET["id"])){
     INNER JOIN level ON olahraga.IdLevel=level.IdLevel
     INNER JOIN video ON olahraga.IdVideo=video.IdVideo
     INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-    INNER JOIN Image ON olahraga.IdImage=image.IdImage
+    INNER JOIN image ON olahraga.IdImage=image.IdImage
     WHERE IdOlahraga = '".$IdOlahraga."'
     ";
     $result = mysqli_query($conn,$sql);
@@ -82,66 +82,75 @@ if ($_POST){
             $extension = pathinfo($_FILES["Image"]["name"], PATHINFO_EXTENSION);
             $extension = strtolower($extension);
             if($extension == "jpg" || $extension == "jpeg" || $extension == "png"){
-                // Update Tabel Video
-                $sqlVideo = "UPDATE video SET 
-                            LinkVideo = '".$LinkVideo."', 
-                            Durasi = '".$Durasi."' 
-                            WHERE IdVideo = '".$IdVideo."'";
-                if (mysqli_query($conn, $sqlVideo)) {
-                    // Update Tabel Image
-                    if (isset($_FILES)){
-                        $temp = explode(".", $_FILES['Image']['name']);
-                        $FileName = round(microtime(true)) . '.' . end($temp); // Rename File berdasarkan waktu sekarang
-                        $path = $targetFolder.$FileName;
-                        if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                            $sqlGambar = "UPDATE image SET 
-                                        ImagePath = '".$path."' 
-                                        WHERE IdImage = '".$IdImage."'";
-                            if (mysqli_query($conn, $sqlGambar)) {
-                                // Update Tabel Olahraga
-                                $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
-                                $resultVideo = mysqli_query($conn, $Video);
-                                $dataVideo = mysqli_fetch_assoc($resultVideo);
-                                $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                                $resultImage = mysqli_query($conn, $Image);
-                                $dataImage = mysqli_fetch_assoc($resultImage);
-                                $sqlOlahraga = "UPDATE olahraga SET 
-                                                NamaOlahraga = '".$NamaOlahraga."', 
-                                                IdTipe = '".$IdTipe."', 
-                                                IdLevel = '".$IdLevel."', 
-                                                IdInstruktur = '".$IdInstruktur."', 
-                                                Deskripsi = '".$Deskripsi."', 
-                                                Peralatan = '".$Peralatan."', 
-                                                IdVideo = '".$dataVideo["IdVideo"]."', 
-                                                IdImage = '".$dataImage["IdImage"]."' 
-                                                WHERE IdOlahraga = '".$IdOlahraga."'";
-                                if (mysqli_query($conn, $sqlOlahraga) && unlink($OldImage)) {
-                                    echo "
-                                    <script>
-                                        alert('Data Berhasil Diupdate');
-                                        document.location.href = 'dashboard.php';
-                                    </script>
-                                    ";
-                                } else {
-                                    echo "
-                                    <script>
-                                        alert('Data Gagal Diupdate');
-                                    </script>
-                                    ";
+                if($_FILES["Image"]["size"] <= 5242880){
+                    // Update Tabel Video
+                    $sqlVideo = "UPDATE video SET 
+                                LinkVideo = '".$LinkVideo."', 
+                                Durasi = '".$Durasi."' 
+                                WHERE IdVideo = '".$IdVideo."'";
+                    if (mysqli_query($conn, $sqlVideo)) {
+                        // Update Tabel Image
+                        if (isset($_FILES)){
+                            $temp = explode(".", $_FILES['Image']['name']);
+                            $FileName = round(microtime(true)) . '.' . end($temp); // Rename File berdasarkan waktu sekarang
+                            $path = $targetFolder.$FileName;
+                            if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
+                                $sqlGambar = "UPDATE image SET 
+                                            ImagePath = '".$path."' 
+                                            WHERE IdImage = '".$IdImage."'";
+                                if (mysqli_query($conn, $sqlGambar)) {
+                                    // Update Tabel Olahraga
+                                    $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
+                                    $resultVideo = mysqli_query($conn, $Video);
+                                    $dataVideo = mysqli_fetch_assoc($resultVideo);
+                                    $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
+                                    $resultImage = mysqli_query($conn, $Image);
+                                    $dataImage = mysqli_fetch_assoc($resultImage);
+                                    $sqlOlahraga = "UPDATE olahraga SET 
+                                                    NamaOlahraga = '".$NamaOlahraga."', 
+                                                    IdTipe = '".$IdTipe."', 
+                                                    IdLevel = '".$IdLevel."', 
+                                                    IdInstruktur = '".$IdInstruktur."', 
+                                                    Deskripsi = '".$Deskripsi."', 
+                                                    Peralatan = '".$Peralatan."', 
+                                                    IdVideo = '".$dataVideo["IdVideo"]."', 
+                                                    IdImage = '".$dataImage["IdImage"]."' 
+                                                    WHERE IdOlahraga = '".$IdOlahraga."'";
+                                    if (mysqli_query($conn, $sqlOlahraga) && unlink($OldImage)) {
+                                        echo "
+                                        <script>
+                                            alert('Data Berhasil Diupdate');
+                                            document.location.href = 'dashboard.php';
+                                        </script>
+                                        ";
+                                    } else {
+                                        echo "
+                                        <script>
+                                            alert('Data Gagal Diupdate');
+                                        </script>
+                                        ";
+                                    }
                                 }
+                            } else {
+                                echo "
+                                <script>
+                                    alert('Gagal Update Gambar');
+                                </script>
+                                ";
                             }
-                        } else {
-                            echo "
-                            <script>
-                                alert('Gagal Update Gambar');
-                            </script>
-                            ";
                         }
+                    } else {
+                        echo "
+                        <script>
+                            alert('Data Video Gagal Diupdate');
+                        </script>
+                        ";
                     }
                 } else {
                     echo "
                     <script>
-                        alert('Data Video Gagal Diupdate');
+                        alert('Filesize tidak boleh lebih dari 5 MB');
+                        document.location.href = 'dashboard.php';
                     </script>
                     ";
                 }
@@ -163,52 +172,61 @@ if ($_POST){
             $extension = pathinfo($_FILES['Image']['name'], PATHINFO_EXTENSION);
             $extension = strtolower($extension);
             if ($extension == "jpg" || $extension == "png" || $extension == "jpeg") {
-                // Insert Tabel Video
-                $sqlVideo = "INSERT INTO video VALUES ('', '".$LinkVideo."', '".$Durasi."')";
-                if (mysqli_query($conn, $sqlVideo)) {
-                    // Insert Tabel Image
-                    if (isset($_FILES)){
-                        $temp = explode(".", $_FILES['Image']['name']);
-                        $FileName = round(microtime(true)) . '.' . end($temp); // Rename File berdasarkan waktu sekarang
-                        $path = $targetFolder.$FileName;
-                        if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                            $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
-                            if (mysqli_query($conn, $sqlGambar)) {
-                                // Insert Tabel Olahraga
-                                $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
-                                $resultVideo = mysqli_query($conn, $Video);
-                                $dataVideo = mysqli_fetch_assoc($resultVideo);
-                                $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                                $resultImage = mysqli_query($conn, $Image);
-                                $dataImage = mysqli_fetch_assoc($resultImage);
-                                $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '".$NamaOlahraga."', '".$IdTipe."', '".$IdLevel."', '".$IdInstruktur."', '".$Deskripsi."', '".$Peralatan."', '".$dataVideo["IdVideo"]."', '".$dataImage["IdImage"]."')";
-                                if (mysqli_query($conn, $sqlOlahraga)) {
-                                    echo "
-                                    <script>
-                                        alert('Data Berhasil Ditambah');
-                                        document.location.href = 'dashboard.php';
-                                    </script>
-                                    ";
-                                } else {
-                                    echo "
-                                    <script>
-                                        alert('Data Gagal Ditambah');
-                                    </script>
-                                    ";
+                if($_FILES['Image']['size'] <= 5242880){
+                    // Insert Tabel Video
+                    $sqlVideo = "INSERT INTO video VALUES ('', '".$LinkVideo."', '".$Durasi."')";
+                    if (mysqli_query($conn, $sqlVideo)) {
+                        // Insert Tabel Image
+                        if (isset($_FILES)){
+                            $temp = explode(".", $_FILES['Image']['name']);
+                            $FileName = round(microtime(true)) . '.' . end($temp); // Rename File berdasarkan waktu sekarang
+                            $path = $targetFolder.$FileName;
+                            if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
+                                $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
+                                if (mysqli_query($conn, $sqlGambar)) {
+                                    // Insert Tabel Olahraga
+                                    $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
+                                    $resultVideo = mysqli_query($conn, $Video);
+                                    $dataVideo = mysqli_fetch_assoc($resultVideo);
+                                    $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
+                                    $resultImage = mysqli_query($conn, $Image);
+                                    $dataImage = mysqli_fetch_assoc($resultImage);
+                                    $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '".$NamaOlahraga."', '".$IdTipe."', '".$IdLevel."', '".$IdInstruktur."', '".$Deskripsi."', '".$Peralatan."', '".$dataVideo["IdVideo"]."', '".$dataImage["IdImage"]."')";
+                                    if (mysqli_query($conn, $sqlOlahraga)) {
+                                        echo "
+                                        <script>
+                                            alert('Data Berhasil Ditambah');
+                                            document.location.href = 'dashboard.php';
+                                        </script>
+                                        ";
+                                    } else {
+                                        echo "
+                                        <script>
+                                            alert('Data Gagal Ditambah');
+                                        </script>
+                                        ";
+                                    }
                                 }
+                            } else {
+                                echo "
+                                <script>
+                                    alert('Gagal Upload Gambar');
+                                </script>
+                                ";
                             }
-                        } else {
-                            echo "
-                            <script>
-                                alert('Gagal Upload Gambar');
-                            </script>
-                            ";
                         }
+                    } else {
+                        echo "
+                        <script>
+                            alert('Data Video Gagal Ditambah');
+                        </script>
+                        ";
                     }
                 } else {
                     echo "
                     <script>
-                        alert('Data Video Gagal Ditambah');
+                        alert('Filesize tidak boleh lebih dari 5 MB');
+                        document.location.href = 'dashboard.php';
                     </script>
                     ";
                 }
@@ -223,7 +241,8 @@ if ($_POST){
     } else {
         echo "
         <script>
-            alert('Data Tidak Boleh Kosong');
+            alert('Data Tipe, Level dan Instruktur Tidak Boleh Kosong');
+            document.location.href = 'dashboard.php';
         </script>
         ";
     }
@@ -273,19 +292,19 @@ if ($_POST){
             <tr>
                 <td>Tipe Olahraga</td>
                 <td><select name="IdTipe">
-                    <option id="Tipe" value=""></option>
-                    <option id="Tipe" value="1" <?php if($NamaTipe == 'Yoga'){echo " selected =\"selected\"";} ?>>Yoga</option>
-                    <option id="Tipe" value="2" <?php if($NamaTipe == 'HIIT'){echo " selected =\"selected\"";} ?>>HIIT</option>
-                    <option id="Tipe" value="3" <?php if($NamaTipe == 'Cardio'){echo " selected =\"selected\"";} ?>>Cardio</option>
+                    <option value=""></option>
+                    <option value="1" <?php if($NamaTipe == 'Yoga'){echo " selected =\"selected\"";} ?>>Yoga</option>
+                    <option value="2" <?php if($NamaTipe == 'HIIT'){echo " selected =\"selected\"";} ?>>HIIT</option>
+                    <option value="3" <?php if($NamaTipe == 'Cardio'){echo " selected =\"selected\"";} ?>>Cardio</option>
                 </select></td>
             </tr>
             <tr>
                 <td>Level Olahraga</td>
                 <td><select name="IdLevel">
-                    <option id="Level" value=""></option>
-                    <option id="Level" value="1" <?php if($NamaLevel == 'Beginner'){echo " selected =\"selected\"";} ?>>Beginner</option>
-                    <option id="Level" value="2" <?php if($NamaLevel == 'Intermediate'){echo " selected =\"selected\"";} ?>>Intermediate</option>
-                    <option id="Level" value="3" <?php if($NamaLevel == 'Advanced'){echo " selected =\"selected\"";} ?>>Advanced</option>
+                    <option value=""></option>
+                    <option value="1" <?php if($NamaLevel == 'Beginner'){echo " selected =\"selected\"";} ?>>Beginner</option>
+                    <option value="2" <?php if($NamaLevel == 'Intermediate'){echo " selected =\"selected\"";} ?>>Intermediate</option>
+                    <option value="3" <?php if($NamaLevel == 'Advanced'){echo " selected =\"selected\"";} ?>>Advanced</option>
                 </select></td>
             </tr>
             <tr>
@@ -293,7 +312,7 @@ if ($_POST){
                 <td><select name="IdInstruktur">
                     <option value=""></option>
                     <?php while($rowInstruktur = mysqli_fetch_row($resultInstruktur)) {
-                        echo "<option id='Instruktur' value = '{$rowInstruktur[0]}'";
+                        echo "<option value = '{$rowInstruktur[0]}'";
                         if($rowInstruktur[0] == $IdInstruktur){
                             echo " selected =\"selected\"";
                         }
@@ -337,7 +356,7 @@ if ($_POST){
 
     <script type="text/javascript">
         var inpLink = document.getElementById('Link');
-        var regex = /embed/;
+        var regex = /https:\/\/www.youtube.com\/embed\//;
 
         function validation() {
             document.getElementById('alert').innerHTML = "";

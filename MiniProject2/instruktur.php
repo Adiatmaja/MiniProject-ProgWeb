@@ -26,7 +26,7 @@ if (isset($_GET["id"])){
 }
 
 if ($_POST){
-    if (($_POST["IdInstruktur"])!=null) {
+    if (($_POST["IdInstruktur"]) != null) {
         $NamaInstruktur = $_POST["NamaInstruktur"];
         $IdInstruktur = $_POST["IdInstruktur"];
         $sql = "UPDATE instruktur SET 
@@ -51,7 +51,7 @@ if ($_POST){
     } else {
         $NamaInstruktur = $_POST["NamaInstruktur"];
     
-        $sql = "INSERT INTO instruktur VALUES ('', '$NamaInstruktur')";
+        $sql = "INSERT INTO instruktur VALUES ('', '".$NamaInstruktur."')";
 
         if (mysqli_query($conn, $sql)) {
             echo "
@@ -103,7 +103,7 @@ if ($_POST){
             </div>
         </div>
     </header>
-    <a href="dashboard.php">Kembali</a>
+    <a class="back" href="dashboard.php">Kembali</a>
     <form class="formdata" action="instruktur.php" method="post">
         <table>
             <input type="hidden" name="IdInstruktur" value="<?php if($id!=0) {echo $IdInstruktur;}?>">

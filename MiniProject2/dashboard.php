@@ -19,7 +19,7 @@ INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
 INNER JOIN level ON olahraga.IdLevel=level.IdLevel
 INNER JOIN video ON olahraga.IdVideo=video.IdVideo
 INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-INNER JOIN Image ON olahraga.IdImage=image.IdImage
+INNER JOIN image ON olahraga.IdImage=image.IdImage
 ORDER BY IdOlahraga
 ";
 $sql2 = "
@@ -80,7 +80,7 @@ $result2=mysqli_query($conn, $sql2);
                         echo "<td>".$row['Peralatan']."</td>";
                         echo "<td>".$row['Durasi']."</td>";
                         echo "<td>".$row['Instruktur']."</td>";
-                        echo "<td><a href='data.php?id=".$row['IdOlahraga']."' >Edit</a><a href='delete.php?id=".$row['IdOlahraga']."' onclick='return confirm(`hapus?`)'>Delete</a></td>";
+                        echo "<td><a href='data.php?id=".$row['IdOlahraga']."' >Edit</a><a href='delete.php?id=".$row['IdOlahraga']."' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
                         echo "</tr>";
                     }
                 }
@@ -102,7 +102,7 @@ $result2=mysqli_query($conn, $sql2);
                         echo "<tr>";
                         echo "<td>".$i."</td>";
                         echo "<td>".$row2['NamaInstruktur']."</td>";
-                        echo "<td><a href='instruktur.php?id=".$row2['IdInstruktur']."'>Edit</a><a href='instrukturDelete.php?id=".$row2['IdInstruktur']."' onclick='return confirm(`hapus?`)'>Delete</a></td>";
+                        echo "<td><a href='instruktur.php?id=".$row2['IdInstruktur']."'>Edit</a><a href='instrukturDelete.php?id=".$row2['IdInstruktur']."' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
                         echo "</tr>";
                         $i++;
                     }

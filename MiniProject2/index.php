@@ -8,7 +8,7 @@ INNER JOIN tipe ON olahraga.IdTipe=tipe.Idtipe
 INNER JOIN level ON olahraga.IdLevel=level.IdLevel
 INNER JOIN video ON olahraga.IdVideo=video.IdVideo
 INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-INNER JOIN Image ON olahraga.IdImage=image.IdImage
+INNER JOIN image ON olahraga.IdImage=image.IdImage
 ORDER BY IdOlahraga
 ";
 $result=mysqli_query($conn, $sql);

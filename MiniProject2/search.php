@@ -13,7 +13,7 @@ if($_GET){
         INNER JOIN level ON olahraga.IdLevel=level.IdLevel
         INNER JOIN video ON olahraga.IdVideo=video.IdVideo
         INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-        INNER JOIN Image ON olahraga.IdImage=image.IdImage 
+        INNER JOIN image ON olahraga.IdImage=image.IdImage 
         where olahraga.NamaOlahraga='".$search."' or tipe.NamaTipe='".$search."' or level.NamaLevel='".$search."'
         ";
     }else{
@@ -46,7 +46,7 @@ if($_GET){
             INNER JOIN level ON olahraga.IdLevel=level.IdLevel
             INNER JOIN video ON olahraga.IdVideo=video.IdVideo
             INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-            INNER JOIN Image ON olahraga.IdImage=image.IdImage 
+            INNER JOIN image ON olahraga.IdImage=image.IdImage 
             where olahraga.NamaOlahraga ".$nama." and tipe.NamaTipe = ".$tipe." and level.NamaLevel= ".$level."
             ";
         }

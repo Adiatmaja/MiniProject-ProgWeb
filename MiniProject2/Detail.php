@@ -10,7 +10,7 @@ if($_GET){
     INNER JOIN level ON olahraga.IdLevel=level.IdLevel
     INNER JOIN video ON olahraga.IdVideo=video.IdVideo
     INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
-    INNER JOIN Image ON olahraga.IdImage=image.IdImage where IdOlahraga=".$id;
+    INNER JOIN image ON olahraga.IdImage=image.IdImage where IdOlahraga=".$id;
     $result=mysqli_query($conn, $sql);
     if (mysqli_num_rows($result)>0){
         $row=mysqli_fetch_assoc($result);
