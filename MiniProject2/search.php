@@ -17,24 +17,27 @@ if($_GET){
         where olahraga.NamaOlahraga='".$search."' or tipe.NamaTipe='".$search."' or level.NamaLevel='".$search."'
         ";
     }else{
-        if($_GET['Nama']==null){
-            $nama="= 0";
-        }else{
-            $nama=$_GET['Nama'];
-            $nama="LIKE '%".$nama."%'";
-        }
-        if($_GET['tipe']==null){
-            $tipe=0;
-        }else{
-            $tipe=$_GET['tipe'];
-            $tipe="'".$tipe."'";
-        }
-        if($_GET['level']==null){
-            $level=0;
-        }else{
-            $level=$_GET['level'];
-            $level="'".$level."'";
-        }
+        
+        
+            if($_GET['Nama']==null){
+                $nama="= 0";
+            }else{
+                $nama=$_GET['Nama'];
+                $nama="LIKE '%".$nama."%'";
+            }
+            if($_GET['Nama']==null){
+                $tipe=0;
+            }else{
+                $tipe=$_GET['tipe'];
+                $tipe="'".$tipe."'";
+            }
+            if($_GET['level']==null){
+                $level=0;
+            }else{
+                $level=$_GET['level'];
+                $level="'".$level."'";
+            }
+        
 
         $sql="
         SELECT olahraga.idolahraga as IdOlahraga, olahraga.NamaOlahraga as NamaOlahraga, tipe.NamaTipe as TipeOlahraga, level.NamaLevel as Level, olahraga.Peralatan,
@@ -152,6 +155,9 @@ if($_GET){
         }
 </script>
     <?php
+    if($_GET['Nama']==null&&$_GET['Nama']==null&&$_GET['level']==null){
+        echo "<p class='s'> data tidak ditemukan</p>";
+    }else{
         $result=mysqli_query($conn, $sql);
         if (mysqli_num_rows($result)>0){
             if(isset($search)){
@@ -167,6 +173,7 @@ if($_GET){
         }else{
             echo "<p class='s'> data tidak ditemukan</p>";
         }
+    }
     ?>
     
 </body>
