@@ -35,10 +35,6 @@ if (isset($_GET["id"])){
     ";
     $result = mysqli_query($conn,$sql);
     $data = mysqli_fetch_assoc($result);
-<<<<<<< Updated upstream
-    $id=$data["IdOlahraga"];
-=======
->>>>>>> Stashed changes
     $NamaOlahraga = $data["NamaOlahraga"];
     $NamaTipe = $data["TipeOlahraga"];
     $NamaLevel = $data["Level"];
@@ -59,61 +55,6 @@ if (isset($_GET["id"])){
 }
 
 if ($_POST){
-<<<<<<< Updated upstream
-    if ($_POST["IdOlahraga"]!=null) {
-        $NamaOlahraga = $_POST["NamaOlahraga"];
-        $IdTipe = $_POST["IdTipe"];
-        $IdLevel = $_POST["IdLevel"];
-        $IdInstruktur = $_POST["IdInstruktur"];
-        $Deskripsi = $_POST["Deskripsi"];
-        $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = $_POST["LinkVideo"];
-        $Durasi = $_POST["Durasi"];
-
-        // Insert Tabel Video
-        $sqlVideo = "UPDATE video SET 
-                    LinkVideo = '".$LinkVideo."', 
-                    Durasi = '".$Durasi."' 
-                    WHERE ";
-        if (mysqli_query($conn, $sqlVideo)) {
-            // Insert Tabel Image
-            if (isset($_FILES)){
-                $path = $targetFolder.$_FILES['Image']['name'];
-                if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                    $sqlGambar = "UPDATE image SET 
-                                ImagePath = '".$path."' 
-                                WHERE ";
-                    if (mysqli_query($conn, $sqlGambar)) {
-                        // Insert Tabel Olahraga
-                        $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
-                        $resultVideo = mysqli_query($conn, $Video);
-                        $dataVideo = mysqli_fetch_assoc($resultVideo);
-                        $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                        $resultImage = mysqli_query($conn, $Image);
-                        $dataImage = mysqli_fetch_assoc($resultImage);
-                        $sqlOlahraga = "UPDATE olahraga SET 
-                                        NamaOlahraga = '".$NamaOlahraga."', 
-                                        IdTipe = '".$IdTipe."', 
-                                        IdLevel = '".$IdLevel."', 
-                                        IdInstruktur = '".$IdInstruktur."', 
-                                        Deskripsi = '".$Deskripsi."', 
-                                        Peralatan = '".$Peralatan."', 
-                                        IdVideo = '".$dataVideo["IdVideo"]."', 
-                                        IdImage = '".$dataImage["IdImage"]."' 
-                                        WHERE IdOlahraga = '".$_GET["id"]."'";
-                        if (mysqli_query($conn, $sqlOlahraga)) {
-                            echo "
-                            <script>
-                                alert('Data Berhasil Diupdate');
-                                document.location.href = 'dashboard.php';
-                            </script>
-                            ";
-                        } else {
-                            echo "
-                            <script>
-                                alert('Data Gagal Diupdate');
-                                document.location.href = 'dashboard.php';
-=======
     $IdTipe = $_POST["IdTipe"];
     $IdLevel = $_POST["IdLevel"];
     $IdInstruktur = $_POST["IdInstruktur"];
@@ -189,7 +130,6 @@ if ($_POST){
                             echo "
                             <script>
                                 alert('Gagal Update Gambar');
->>>>>>> Stashed changes
                             </script>
                             ";
                         }
@@ -197,12 +137,7 @@ if ($_POST){
                 } else {
                     echo "
                     <script>
-<<<<<<< Updated upstream
-                        alert('Gagal Update Gambar');
-                        document.location.href = 'dashboard.php';
-=======
                         alert('Data Video Gagal Diupdate');
->>>>>>> Stashed changes
                     </script>
                     ";
                 }
@@ -213,55 +148,6 @@ if ($_POST){
                 </script>
                 ";
             }
-<<<<<<< Updated upstream
-        } else {
-            echo "
-            <script>
-                alert('Data Video Gagal Diupdate');
-                document.location.href = 'dashboard.php';
-            </script>
-            ";
-        }
-    }else {
-        $NamaOlahraga = $_POST["NamaOlahraga"];
-        $IdTipe = $_POST["IdTipe"];
-        $IdLevel = $_POST["IdLevel"];
-        $IdInstruktur = $_POST["IdInstruktur"];
-        $Deskripsi = $_POST["Deskripsi"];
-        $Peralatan = $_POST["Peralatan"];
-        $LinkVideo = $_POST["LinkVideo"];
-        $Durasi = $_POST["Durasi"];
-
-        // Insert Tabel Video
-        $sqlVideo = "INSERT INTO video VALUES ('', '".$LinkVideo."', '".$Durasi."')";
-        if (mysqli_query($conn, $sqlVideo)) {
-            // Insert Tabel Image
-            if (isset($_FILES)){
-                $path = $targetFolder.$_FILES['Image']['name'];
-                if(move_uploaded_file($_FILES['Image']['tmp_name'], $path)){
-                    $sqlGambar = "INSERT INTO image VALUES('', '".$path."')";
-                    if (mysqli_query($conn, $sqlGambar)) {
-                        // Insert Tabel Olahraga
-                        $Video = "SELECT IdVideo FROM video WHERE LinkVideo = '".$LinkVideo."'";
-                        $resultVideo = mysqli_query($conn, $Video);
-                        $dataVideo = mysqli_fetch_assoc($resultVideo);
-                        $Image = "SELECT IdImage FROM image WHERE ImagePath = '".$path."'";
-                        $resultImage = mysqli_query($conn, $Image);
-                        $dataImage = mysqli_fetch_assoc($resultImage);
-                        $sqlOlahraga = "INSERT INTO olahraga VALUES ('', '".$NamaOlahraga."', '".$IdTipe."', '".$IdLevel."', '".$IdInstruktur."', '".$Deskripsi."', '".$Peralatan."', '".$dataVideo["IdVideo"]."', '".$dataImage["IdImage"]."')";
-                        if (mysqli_query($conn, $sqlOlahraga)) {
-                            echo "
-                            <script>
-                                alert('Data Berhasil Ditambah');
-                                document.location.href = 'dashboard.php';
-                            </script>
-                            ";
-                        } else {
-                            echo "
-                            <script>
-                                alert('Data Gagal Ditambah');
-                                document.location.href = 'dashboard.php';
-=======
         }else {
             $NamaOlahraga = $_POST["NamaOlahraga"];
             $Deskripsi = $_POST["Deskripsi"];
@@ -311,7 +197,6 @@ if ($_POST){
                             echo "
                             <script>
                                 alert('Gagal Upload Gambar');
->>>>>>> Stashed changes
                             </script>
                             ";
                         }
@@ -319,12 +204,7 @@ if ($_POST){
                 } else {
                     echo "
                     <script>
-<<<<<<< Updated upstream
-                        alert('Gagal Upload Gambar');
-                        document.location.href = 'dashboard.php';
-=======
                         alert('Data Video Gagal Ditambah');
->>>>>>> Stashed changes
                     </script>
                     ";
                 }
@@ -335,17 +215,6 @@ if ($_POST){
                 </script>
                 ";
             }
-<<<<<<< Updated upstream
-        } else {
-            echo "
-            <script>
-                alert('Data Video Gagal Ditambah');
-                document.location.href = 'dashboard.php';
-            </script>
-            ";
-        }
-    } 
-=======
         }
     } else {
         echo "
@@ -354,7 +223,6 @@ if ($_POST){
         </script>
         ";
     }
->>>>>>> Stashed changes
 }
 
 ?>
@@ -393,11 +261,7 @@ if ($_POST){
     <a class="back" href="dashboard.php">Kembali</a>
     <form class="formdata" action="data.php" method="post" enctype="multipart/form-data">
         <table>
-<<<<<<< Updated upstream
-            <input type="hidden" name="IdOlahraga" value="<?php if($IdOlahraga!=0) {echo $Id;}?>">
-=======
             <input type="hidden" name="IdOlahraga" value="<?php if($id!=0) {echo $IdOlahraga;}?>">
->>>>>>> Stashed changes
             <tr>
                 <td>Nama Olahraga</td>
                 <td><input type="text" name="NamaOlahraga" value="<?= $NamaOlahraga ?>" required></td>
@@ -442,13 +306,8 @@ if ($_POST){
                 <td><input type="text" name="Peralatan" value="<?= $Peralatan ?>"></td>
             </tr>
             <tr>
-<<<<<<< Updated upstream
-                <td>Link Video</td>
-                <td><input type="text" name="LinkVideo" value='<?= $IdVideo ?>' required></td>
-=======
                 <td>Link Video (Embed)</td>
                 <td><input type="text" name="LinkVideo" id="Link" value='<?= $IdVideo ?>' required></td>
->>>>>>> Stashed changes
             </tr>
             <tr>
                 <td>Durasi Video</td>
@@ -459,17 +318,12 @@ if ($_POST){
                 <td rowspan="2"><input type="file" name="Image" value="" required></td>
             </tr>
             <tr>
-<<<<<<< Updated upstream
-                <td>Gambar Olahraga</td>
-                <td><input type="file" name="Image" value="" required></td>
-=======
                 <td>(JPG / JPEG / PNG)</td>
                 <td></td>
             </tr>
             <tr class="alert">
                 <td class="alert" id="alert" colspan="2"></td>
                 <td></td>
->>>>>>> Stashed changes
             </tr>
             <tr>
                 <td class="submit" colspan="2"><input class="button" type="submit" class="submit" value="submit" onclick="validation()"></td>
