@@ -99,40 +99,52 @@ if($_GET){
     <button type="button" class="collapsible">Advanced Search</button>
     <div class="content">
     <form action="search.php" method="GET">
-        Nama Olahraga:
-        <input type="text" name="Nama" ><br>
-        Tipe:
-        <?php
-            $sql2="Select DISTINCT Tipe.NamaTipe as Tipe from tipe ";
-            $result2=mysqli_query($conn, $sql2);
-            if (mysqli_num_rows($result2)>0){
-                echo "<select name='tipe'>";
-                echo "<option value=''>None</option>";
-                while($row2 = mysqli_fetch_assoc($result2)){
-                    echo "<option value=".$row2['Tipe'].">".$row2['Tipe']."</option>";
-                }
-            }echo"</select><br>";
+        <table>
+            <tr><td>
+            Nama Olahraga:
+                </td><td>
+            <input type="text" name="Nama" ><br>
+            </td></tr>
+            <tr><td>
+            Tipe:
+            </td><td>
+            <?php
+                $sql2="Select DISTINCT Tipe.NamaTipe as Tipe from tipe ";
+                $result2=mysqli_query($conn, $sql2);
+                if (mysqli_num_rows($result2)>0){
+                    echo "<select name='tipe'>";
+                    echo "<option value=''>None</option>";
+                    while($row2 = mysqli_fetch_assoc($result2)){
+                        echo "<option value=".$row2['Tipe'].">".$row2['Tipe']."</option>";
+                    }
+                }echo"</select><br>";
 
-        ?>
-        Level:
-        <?php
-            $sql3="Select DISTINCT Level.NamaLevel as Level from level ";
-            $result3=mysqli_query($conn, $sql3);
-            if (mysqli_num_rows($result3)>0){
-                echo "<select name='level'>";
-                echo "<option value=''>None</option>";
-                while($row3 = mysqli_fetch_assoc($result3)){
-                    echo "<option value=".$row3['Level'].">".$row3['Level']."</option>";
-                }
-            }echo"</select><br>";
-            
-        ?>
+            ?>
+            </td></tr>
+            <tr><td>
+            Level:
+            </td><td>
+            <?php
+                $sql3="Select DISTINCT Level.NamaLevel as Level from level ";
+                $result3=mysqli_query($conn, $sql3);
+                if (mysqli_num_rows($result3)>0){
+                    echo "<select name='level'>";
+                    echo "<option value=''>None</option>";
+                    while($row3 = mysqli_fetch_assoc($result3)){
+                        echo "<option value=".$row3['Level'].">".$row3['Level']."</option>";
+                    }
+                }echo"</select><br>";
+                
+            ?>
+            </td></tr>
+        </table>
         <input type="submit" value="search">
         <?php
             if($_POST){
                 echo"adaa";
             }
         ?>
+
     </form>
     </div>
 
