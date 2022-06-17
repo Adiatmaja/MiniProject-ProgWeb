@@ -14,7 +14,7 @@ if($_GET){
         INNER JOIN video ON olahraga.IdVideo=video.IdVideo
         INNER JOIN instruktur ON olahraga.IdInstruktur=instruktur.IdInstruktur
         INNER JOIN image ON olahraga.IdImage=image.IdImage 
-        where olahraga.NamaOlahraga='".$search."' or tipe.NamaTipe='".$search."' or level.NamaLevel='".$search."'
+        where olahraga.NamaOlahraga LIKE '%".$search."%' or tipe.NamaTipe LIKE '%".$search."%' or level.NamaLevel LIKE '%".$search."%'
         ";
     }else{
         if($_GET['Nama']==null&&$_GET['tipe']==null&&$_GET['level']==null){

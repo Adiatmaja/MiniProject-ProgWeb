@@ -45,10 +45,11 @@ if(isset($_SESSION["username"])){
     </form>
     
     <?php
+
         if ($_POST){
             $user=$_POST["username"];
             $password=$_POST["password"];
-            $query="SELECT * FROM admin WHERE username = '".$user."' AND 
+            $query="SELECT Username,Password FROM admin WHERE username = '".$user."' AND 
             password = '".$password."'LIMIT 1;";
             $result_query=mysqli_query($conn,$query);
             $jumlah_row=mysqli_num_rows($result_query);
@@ -57,7 +58,7 @@ if(isset($_SESSION["username"])){
                 $_SESSION["username"]=$user;
                 header("Location: dashboard.php");
             }else if($jumlah_row == 0 && $user!=null && $password!=null){
-                echo "username atau password salah";
+                echo "<p class='salah'>Username atau Password salah</p>";
             }
         }
     ?>
