@@ -120,4 +120,10 @@ th, td {
     position:fixed;
     top: 15%;
     left: 4%;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: rgb(218, 218, 218);
+    text-decoration: none;
+    color: darkblue;
 }

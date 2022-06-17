@@ -123,15 +123,23 @@ table, th, td {
     background-color: rgb(32, 32, 32);
 }
 
-.edit, .delete{
+.edit, .delete, .add{
     border: 1px solid gray;
     border-radius: 5px;
     padding: 3px;
-    background-color: white;
+    background-color: rgb(218, 218, 218);
     text-decoration: none;
-    color: blue;
 }
 
 .edit{
     margin-right: 10px;
+    color: green;
+}
+
+.delete{
+    color: red;
+}
+
+.add{
+    color: darkblue;
 }
