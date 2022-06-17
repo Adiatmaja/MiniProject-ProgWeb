@@ -139,11 +139,6 @@ if($_GET){
             </td></tr>
         </table>
         <input type="submit" value="search">
-        <?php
-            if($_POST){
-                echo"adaa";
-            }
-        ?>
 
     </form>
     </div>
@@ -151,10 +146,7 @@ if($_GET){
     <script>
         var coll = document.getElementsByClassName("collapsible");
         var i;
-
-        for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("active");
+        coll[0].addEventListener("click", function() {
             var content = this.nextElementSibling;
             if (content.style.display === "block") {
             content.style.display = "none";
@@ -162,7 +154,7 @@ if($_GET){
             content.style.display = "block";
             }
         });
-        }
+        
 </script>
     <?php
         $result=mysqli_query($conn, $sql);
