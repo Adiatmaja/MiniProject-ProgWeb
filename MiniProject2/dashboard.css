@@ -122,3 +122,16 @@ table, th, td {
     height: 30px;
     background-color: rgb(32, 32, 32);
 }
+
+.edit, .delete{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: white;
+    text-decoration: none;
+    color: blue;
+}
+
+.edit{
+    margin-right: 10px;
+}

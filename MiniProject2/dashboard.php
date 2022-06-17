@@ -66,7 +66,7 @@ $result2=mysqli_query($conn, $sql2);
                 <th>Tipe Olahraga</th>
                 <th>Level</th>
                 <th>Peralatan</th>
-                <th>Durasi</th>
+                <th>Durasi (min)</th>
                 <th>Instruktur</th>
                 <th>Action</th>
             </tr>
@@ -80,7 +80,7 @@ $result2=mysqli_query($conn, $sql2);
                         echo "<td>".$row['Peralatan']."</td>";
                         echo "<td>".$row['Durasi']."</td>";
                         echo "<td>".$row['Instruktur']."</td>";
-                        echo "<td><a href='data.php?id=".$row['IdOlahraga']."' >Edit</a><a href='delete.php?id=".$row['IdOlahraga']."' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
+                        echo "<td><a href='data.php?id=".$row['IdOlahraga']."' class='edit'>Edit</a><a href='delete.php?id=".$row['IdOlahraga']."' class='delete' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
                         echo "</tr>";
                     }
                 }
@@ -102,7 +102,7 @@ $result2=mysqli_query($conn, $sql2);
                         echo "<tr>";
                         echo "<td>".$i."</td>";
                         echo "<td>".$row2['NamaInstruktur']."</td>";
-                        echo "<td><a href='instruktur.php?id=".$row2['IdInstruktur']."'>Edit</a><a href='instrukturDelete.php?id=".$row2['IdInstruktur']."' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
+                        echo "<td><a href='instruktur.php?id=".$row2['IdInstruktur']."' class='edit'>Edit</a><a href='instrukturDelete.php?id=".$row2['IdInstruktur']."' class='delete' onclick='return confirm(`Apakah anda yakin ingin menghapus data ini?`)'>Delete</a></td>";
                         echo "</tr>";
                         $i++;
                     }
